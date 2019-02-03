@@ -1,0 +1,14 @@
+
+
+  <nav class="navbar navbar-dark bg-dark mb-5">
+      <a class="navbar-brand" [routerLink]="['index']">Exam System</a>
+      <div class="navbar-expand mr-auto">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" [routerLink]="['index']">Home</a>
+          <a class="nav-item nav-link" [routerLink]="['admin/users']">User</a>
+          <a class="nav-item nav-link"  [routerLink]="['admin/questions']">Question</a>
+        </div>
+      </div>
+
+    </nav>
+    <router-outlet></router-outlet>
