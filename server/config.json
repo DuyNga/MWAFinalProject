@@ -1,0 +1,4 @@
+{
+    "connectionString":"mongodb://admin:admin1@ds221155.mlab.com:21155/examsystem",
+    "secret": "Ahihi"
+}
