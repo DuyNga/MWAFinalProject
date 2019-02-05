@@ -10,8 +10,8 @@
         </div>
       </div>
       <div>
-        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right">Login</a>
-        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right" >Logout</a>
+        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right" *ngIf='!isLogin'>Login</a>
+        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right"  *ngIf='isLogin'>Logout</a>
       </div>
     </nav>
     <div class="container">
