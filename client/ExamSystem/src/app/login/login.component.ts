@@ -1,6 +1,6 @@
 import { LoginService } from './login.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   errormessage = '';
+  @Input () isLogin: boolean;
   constructor( private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router, private loginService: LoginService) {
@@ -36,8 +37,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['admin/questions']);
       }
       this.loading = false;
+      this.isLogin = true;
     },
-    err => { this.errormessage = 'User name Or Password is incorrect. Please try again !!!';
+    err => {        this.isLogin = false;
+      this.errormessage = 'User name Or Password is incorrect. Please try again !!!';
     });
 
   }
