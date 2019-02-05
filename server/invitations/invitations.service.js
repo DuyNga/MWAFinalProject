@@ -2,10 +2,19 @@ const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../helper/db');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+const SUBJECT = "Inviation For Computer Science Exam";
+
+dotenv.config();
+const {
+    USER_EMAIL: userEmail,
+    PASS_EMAIL: password
+} = process.env;
 const Invitation = db.Invitation;
 
 module.exports = {
-    getRandom,
+    sendEmail,
     getAll,
     getById,
     create,
@@ -13,8 +22,25 @@ module.exports = {
     delete: _delete
 };
 
-async function getRandom() {
-    return await Invitation.aggregate().sample(3);
+async function sendEmail(invitationParam) {
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: userEmail,
+            pass: password
+        }
+    });
+    let mailOptions = {
+        from: userEmail,
+        to: invitationParam.email,
+        subject: SUBJECT,
+        text: invitationParam.link
+    };
+    return await transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            throw error;
+        }
+    });
 
 }
 

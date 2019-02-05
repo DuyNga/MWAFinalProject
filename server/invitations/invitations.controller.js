@@ -27,8 +27,11 @@ function getAll(req, res, next) {
 }
 
 function sendEmail(req, res, next) {
-    invitationService.getRandom()
-        .then(invitations => res.json(invitations))
+    let body = req.body;
+    body.link = ` Zữ Zằn
+    https://www.youtube.com/watch?v=-X79Jko9bBI`;
+    invitationService.sendEmail(body)
+        .then(invitations => res.json({status:"Send mail successfully."}))
         .catch(err => next(err));
 }
 
