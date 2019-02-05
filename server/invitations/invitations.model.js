@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    question : {type: String, unique:true, required:true},
+    invitation : {type: String, unique:true, required:true},
     sampleAnswer:{type: String , required: true},
     status: {type:String, default:"active"}
 });

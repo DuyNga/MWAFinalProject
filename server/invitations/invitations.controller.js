@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const questionService = require('./questions.service');
+const invitationService = require('./invitations.service');
 var ObjectId = require('mongodb').ObjectID;
 
 // routes
@@ -15,37 +15,37 @@ router.delete('/:id', _delete);
 module.exports = router;
 
 function register(req, res, next) {
-    questionService.create(req.body)
-        .then(() => res.json({ status: "Save question successfully." }))
+    invitationService.create(req.body)
+        .then(() => res.json({ status: "Save invitation successfully." }))
         .catch(err => next(err));
 }
 
 function getAll(req, res, next) {
-    questionService.getAll()
-        .then(questions => res.json(questions))
+    invitationService.getAll()
+        .then(invitations => res.json(invitations))
         .catch(err => next(err));
 }
 
 function getRandom(req, res, next) {
-    questionService.getRandom()
-        .then(questions => res.json(questions))
+    invitationService.getRandom()
+        .then(invitations => res.json(invitations))
         .catch(err => next(err));
 }
 
 function getById(req, res, next) {
-    questionService.getById(ObjectId(req.params.id))
-        .then(question => question ? res.json(question) : res.sendStatus(404))
+    invitationService.getById(ObjectId(req.params.id))
+        .then(invitation => invitation ? res.json(invitation) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
 function update(req, res, next) {
-    questionService.update(ObjectId(req.params.id), req.body)
-        .then(() => res.json({ status: "Save question successfully." }))
+    invitationService.update(ObjectId(req.params.id), req.body)
+        .then(() => res.json({ status: "Save invitation successfully." }))
         .catch(err => next(err));
 }
 
 function _delete(req, res, next) {
-    questionService.delete(req.params.id)
-        .then(() => res.json({ status: "Delete question successfully." }))
+    invitationService.delete(req.params.id)
+        .then(() => res.json({ status: "Delete invitation successfully." }))
         .catch(err => next(err));
 }

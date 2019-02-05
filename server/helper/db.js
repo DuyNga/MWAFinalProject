@@ -4,5 +4,6 @@ mongoose.connect(process.env.MONGODB_URI|| config.connectionString);
 
 mongoose.Promise = global.Promise;
 module.exports = {
-    User:require('../users/users.model')
+    User:require('../users/users.model'),
+    Question:require('../questions/questions.model')
 }
