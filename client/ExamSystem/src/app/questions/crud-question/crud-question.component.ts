@@ -1,7 +1,7 @@
 
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, Inject ,Output, EventEmitter} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog,MatDialogRef } from '@angular/material';
 import { QuestionsService } from '../questions.service';
 import { Questions } from '../question.model';
 
@@ -13,10 +13,11 @@ import { Questions } from '../question.model';
 export class CrudQuestionComponent implements OnInit {
   crudQuestionForm: FormGroup;
   hide = true;
-  @Output() closeEmitter = new EventEmitter();
   constructor(fb: FormBuilder,
     private questionService: QuestionsService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA,
+      ) public data: any,
+      public dialogRef: MatDialogRef<CrudQuestionComponent>
     ) {
 
     console.log(data);
@@ -41,9 +42,6 @@ export class CrudQuestionComponent implements OnInit {
   ngOnInit() {
   }
   addNewQuestion(){
-    console.log(this.data);
-    console.log(this.data.id);
-    console.log(this.data._id);
     this.questionService.addNewQuestion((this.data)).subscribe(result => {
       console.log(result);
     });
@@ -51,7 +49,7 @@ export class CrudQuestionComponent implements OnInit {
   }
 
   cancel(){
-    this.closeEmitter.emit();
+    this.dialogRef.close();
   }
 
 }
