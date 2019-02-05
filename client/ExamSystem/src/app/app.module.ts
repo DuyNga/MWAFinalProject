@@ -1,3 +1,4 @@
+import { GuardGuard } from './guard.guard';
 import { CrudUserComponent } from './users/crud-user/crud-user.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -15,6 +16,7 @@ import {MaterialModule} from './meterial.module';
 import {MatNativeDateModule} from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
+import { AuthService } from './login/auth.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import {HttpClientModule} from '@angular/common/http';
 
   ],
   entryComponents: [CrudUserComponent],
-  providers: [],
+  providers: [AuthService, GuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

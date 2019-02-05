@@ -1,3 +1,7 @@
+
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class QuestionsService {
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
 }
+
+

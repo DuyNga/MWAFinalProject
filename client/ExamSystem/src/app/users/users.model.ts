@@ -1,6 +1,6 @@
 export class Users {
     userName: String;
-    hash: String;
+    password: String;
     firstName: String;
     lastName: String;
     role: String;

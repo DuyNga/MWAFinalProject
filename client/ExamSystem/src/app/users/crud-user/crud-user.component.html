@@ -1,7 +1,7 @@
 <h3>CRUD User</h3>
 <h3>{{data.userName}}</h3>
 <div class="container">
-   
+
 <form class="form-horizontal crud-container" #formControl="ngForm">
 
    <mat-form-field
@@ -12,7 +12,7 @@
 
   <mat-form-field  [hideRequiredMarker]="crudUserForm.value.hideRequired">
       <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
-       required [(ngModel)]="data.hash" [ngModelOptions]="{ standalone: true }">
+       required [(ngModel)]="data.password" [ngModelOptions]="{ standalone: true }">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
     <mat-form-field

@@ -25,7 +25,6 @@ export class CrudUserComponent implements OnInit {
       status: 'active'
     });
     if ( data == null ) {
-      console.log("set new");
       this.data = new Users();
     }
 
@@ -35,10 +34,10 @@ export class CrudUserComponent implements OnInit {
     Validators.required
     // Validators.email,
   ]);
- 
+
   ngOnInit() {
   }
-  addNewUser(){
+  addNewUser() {
     console.log(this.data);
     this.userService.addNewUser(JSON.stringify(this.data)).subscribe(result => {
       console.log(result);
@@ -46,6 +45,5 @@ export class CrudUserComponent implements OnInit {
 
   }
 
-  cancel(){
-  }
+  cancel() { }
 }
