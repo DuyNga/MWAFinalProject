@@ -19,11 +19,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     console.log('User Oninit');
-    this.usersService.getAllUser().subscribe(result => {
-      console.log(result);
-      this.dataSource = new MatTableDataSource(result);
-      this.dataSource.paginator = this.paginator;
-    });
+    this.loadData();
   }
 
   addNew() {
@@ -37,7 +33,7 @@ export class UsersComponent implements OnInit {
     });
 
     newDialog.afterClosed().subscribe(result => {
-      console.log('diaglog close');
+      this.loadData();
     });
    }
   startEdit(data) {
@@ -48,13 +44,21 @@ export class UsersComponent implements OnInit {
       data: data
     });
     editDialog.afterClosed().subscribe(result => {
-     console.log('diaglog close');
+      this.loadData();
     });
   }
   deleteItem(id) {
     console.log('Delete click');
     this.usersService.deactiveUserById(id).subscribe(result => {
-      console.log(result);
-    })
+      this.loadData();
+    });
    }
+
+   public loadData() {
+    this.usersService.getAllUser().subscribe(result => {
+      console.log(result);
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
 }

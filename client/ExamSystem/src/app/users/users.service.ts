@@ -21,8 +21,8 @@ export class UsersService {
       headers: this.headers
     });
   }
-  deactiveUserById(id){
-    return this.http.put('http://localhost:4000/user/updatestatus', id, {
+  deactiveUserById(id) {
+    return this.http.put('http://localhost:4000/user/updatestatus/' + id, {
       headers: this.headers
     });
   }

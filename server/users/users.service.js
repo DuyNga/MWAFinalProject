@@ -77,14 +77,14 @@ async function _delete(id) {
 
 async function updateStatus(id, userParam) {
     const user = await User.findById(id);
-
+    console.log(user);
     // validate
     if (!user) throw 'User not found';
  
     if(user.status==='active'){
-        Object.assign(user.status,'deactive');
+       user.status ='deactive';
     }else{
-        Object.assign(user.status,'active');
+        user.status ='active';
     }
 
     await user.save();
