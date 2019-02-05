@@ -2,7 +2,7 @@ import { UsersService } from './../users.service';
 import { Users } from './../users.model';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog,MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-crud-user',
@@ -14,7 +14,8 @@ export class CrudUserComponent implements OnInit {
   hide = true;
   constructor(fb: FormBuilder,
     private userService: UsersService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<CrudUserComponent>
     ) {
 
     console.log(data);
@@ -45,5 +46,7 @@ export class CrudUserComponent implements OnInit {
 
   }
 
-  cancel() { }
+  cancel() {
+    this.dialogRef.close();
+   }
 }

@@ -7,10 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { AuthService } from './login/auth.service';
+import { InvitationsComponent } from './invitations/invitations.component';
 
 const routes: Routes = [
   {path: 'admin/users', component: UsersComponent, canActivate: [GuardGuard]},
   {path: 'admin/questions', component: QuestionsComponent, canActivate: [GuardGuard]},
+  {path: 'admin/invitations', component: InvitationsComponent, canActivate: [GuardGuard]},
   {path: 'index', component: HomeComponent},
   {path: 'login', component: LoginComponent}
 ];

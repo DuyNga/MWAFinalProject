@@ -19,10 +19,6 @@ export class QuestionsService {
   }
 
   addNewQuestion(data) {
-    console.log('EEEE');
-    console.log(data);
-    console.log(data.id);
-    console.log(data._id);
     if (data.hasOwnProperty('_id')) {
       return this.http.put("http://localhost:4000/question/"+data.id, data, {
         headers: this.headers
@@ -38,7 +34,4 @@ export class QuestionsService {
       headers: this.headers
     });
   }
-
 }
-
-

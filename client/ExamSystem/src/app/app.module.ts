@@ -18,6 +18,8 @@ import {MatNativeDateModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import { AuthService } from './login/auth.service';
 import { CrudQuestionComponent } from './questions/crud-question/crud-question.component';
+import { InvitationsComponent } from './invitations/invitations.component';
+import { CrudInvitationComponent } from './invitations/crud-invitation/crud-invitation.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { CrudQuestionComponent } from './questions/crud-question/crud-question.c
     AppComponent,
     routingComponent,
     CrudUserComponent,
-    CrudQuestionComponent
+    CrudQuestionComponent,
+    InvitationsComponent,
+    CrudInvitationComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { CrudQuestionComponent } from './questions/crud-question/crud-question.c
     HttpClientModule,
 
   ],
-  entryComponents: [CrudUserComponent, CrudQuestionComponent],
+  entryComponents: [CrudUserComponent, CrudQuestionComponent
+  , CrudInvitationComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
