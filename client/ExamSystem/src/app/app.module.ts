@@ -17,12 +17,15 @@ import {MatNativeDateModule} from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
 import { AuthService } from './login/auth.service';
+import { CrudQuestionComponent } from './questions/crud-question/crud-question.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponent,
-    CrudUserComponent
+    CrudUserComponent,
+    CrudQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -34,8 +37,7 @@ import { AuthService } from './login/auth.service';
     HttpClientModule,
 
   ],
-  entryComponents: [CrudUserComponent],
-  providers: [AuthService, GuardGuard],
+  entryComponents: [CrudUserComponent, CrudQuestionComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

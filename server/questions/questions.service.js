@@ -10,21 +10,16 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    updateStatus
 };
 
 async function getRandom(){
-    // return await Question.findRandom({}, {}, {limit: 3}, function(err, results) {
-    //     if (!err) {
-    //       console.log(results); // 5 elements
-    //     }
-    //   });
     return await Question.aggregate().sample(3);
-      
 }
 
 async function getAll() {
-    return await Question.find();
+    return await Question.find({}, null, {sort: 'question'});
 }
 
 async function getById(id) {
@@ -60,4 +55,19 @@ async function update(id, questionParam) {
 
 async function _delete(id) {
     await Question.findByIdAndRemove(id);
+}
+
+async function updateStatus(id, questionParam) {
+    const question = await Question.findById(id);
+    console.log(question);
+    // validate
+    if (!question) throw 'Question not found';
+ 
+    if(question.status==='Active'){
+       question.status ='Deactive';
+    }else{
+        question.status ='Active';
+    }
+
+    await question.save();
 }

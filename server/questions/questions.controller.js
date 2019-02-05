@@ -10,6 +10,7 @@ router.get('/get_random', getRandom);
 router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
+router.put('/updatestatus/:id', updateStatus);
 
 
 module.exports = router;
@@ -48,4 +49,10 @@ function _delete(req, res, next) {
     questionService.delete(req.params.id)
         .then(() => res.json({ status: "Delete question successfully." }))
         .catch(err => next(err));
+}
+
+function updateStatus(req,res, next){
+    console.log(req.params);
+    questionService.updateStatus(req.params.id).then(()=>res.json({}))
+    .catch(err=>next(err));
 }

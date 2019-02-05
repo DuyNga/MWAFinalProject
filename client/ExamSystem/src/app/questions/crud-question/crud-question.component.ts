@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog,MatDialogRef } from '@angular/material';
+import { QuestionsService } from '../questions.service';
+import { Questions } from '../question.model';
 
 @Component({
   selector: 'app-crud-question',
@@ -6,10 +11,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./crud-question.component.css']
 })
 export class CrudQuestionComponent implements OnInit {
+  crudQuestionForm: FormGroup;
+  hide = true;
+  constructor(fb: FormBuilder,
+    private questionService: QuestionsService,
+    @Inject(MAT_DIALOG_DATA,
+      ) public data: any,
+      public dialogRef: MatDialogRef<CrudQuestionComponent>
+    ) {
 
-  constructor() { }
+    console.log(data);
+    this.crudQuestionForm = fb.group({
+      hideRequired: false,
+      floatLabel: 'auto',
+      role: 'staff',
+      status: 'active'
+    });
+    if ( data == null ) {
+      console.log("set new");
+      this.data = new Questions();
+    }
 
+  }
+
+  formControl = new FormControl('', [
+    Validators.required
+    // Validators.email,
+  ]);
+ 
   ngOnInit() {
+  }
+  addNewQuestion(){
+    this.questionService.addNewQuestion((this.data)).subscribe(result => {
+      console.log(result);
+    });
+
+  }
+
+  cancel(){
+    this.dialogRef.close();
   }
 
 }
