@@ -6,8 +6,17 @@
           <a class="nav-item nav-link active" [routerLink]="['index']">Home</a>
           <a class="nav-item nav-link" [routerLink]="['admin/users']">User</a>
           <a class="nav-item nav-link"  [routerLink]="['admin/questions']">Question</a>
+
+
+
         </div>
       </div>
-
+      <div>
+        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right">Login</a>
+        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right" >Logout</a>
+      </div>
     </nav>
+    <div class="container">
     <router-outlet></router-outlet>
+    </div>
+
