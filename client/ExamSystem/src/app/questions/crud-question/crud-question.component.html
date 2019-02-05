@@ -1,3 +1,29 @@
-<p>
-  crud-question works!
-</p>
+<h3>CRUD Question</h3>
+<h3>{{data.questionName}}</h3>
+<div class="container">
+
+  <form class="form-horizontal crud-container" #formControl="ngForm">
+
+    <mat-form-field [hideRequiredMarker]="crudQuestionForm.value.hideRequired" [floatLabel]="crudQuestionForm.value.floatLabel">
+      <textarea matInput placeholder="Question" required [(ngModel)]="data.question" [ngModelOptions]="{ standalone: true }" name="question" #question row = 5></textarea>
+    </mat-form-field>
+    <mat-form-field [floatLabel]="crudQuestionForm.value.floatLabel">
+      <textarea matInput placeholder="Sample Answer"  [(ngModel)]="data.sampleAnswer" [ngModelOptions]="{ standalone: true }" row = 5></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Status" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
+        <mat-option value="Active">Active</mat-option>
+        <mat-option value="Deactive">Deactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-actions style="float:right">
+
+      <button class="btn btn-danger" mat-button (click)="cancel()" tabindex="-1">Cancel</button>
+      <button class="btn btn-primary" mat-button [disabled]="!crudQuestionForm.valid" type="submit" (click)="addNewQuestion()">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

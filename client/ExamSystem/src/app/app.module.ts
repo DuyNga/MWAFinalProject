@@ -15,12 +15,14 @@ import {MaterialModule} from './meterial.module';
 import {MatNativeDateModule} from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
+import { CrudQuestionComponent } from './questions/crud-question/crud-question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponent,
-    CrudUserComponent
+    CrudUserComponent,
+    CrudQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
 
   ],
-  entryComponents: [CrudUserComponent],
+  entryComponents: [CrudUserComponent, CrudQuestionComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -4,3 +4,29 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('//fonts.googleapis.com/icon?family=Material+Icons');
 
+.crud-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .crud-container > * {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .crud-container form {
+    margin-bottom: 20px;
+  }
+  
+  .crud-container form > * {
+    margin: 5px 0;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  
+  
+  
