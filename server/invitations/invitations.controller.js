@@ -6,7 +6,7 @@ var ObjectId = require('mongodb').ObjectID;
 // routes
 router.post('/add', register);
 router.get('/get_all', getAll);
-router.get('/get_random', getRandom);
+router.get('/send_email', sendEmail);
 router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
@@ -26,7 +26,7 @@ function getAll(req, res, next) {
         .catch(err => next(err));
 }
 
-function getRandom(req, res, next) {
+function sendEmail(req, res, next) {
     invitationService.getRandom()
         .then(invitations => res.json(invitations))
         .catch(err => next(err));

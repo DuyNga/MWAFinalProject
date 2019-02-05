@@ -13,9 +13,9 @@ module.exports = {
     delete: _delete
 };
 
-async function getRandom(){
+async function getRandom() {
     return await Invitation.aggregate().sample(3);
-      
+
 }
 
 async function getAll() {
@@ -28,7 +28,7 @@ async function getById(id) {
 
 async function create(invitationParam) {
     // validate
-    if (await Invitation.findOne({ invitation: invitationParam.invitation })) {
+    if (await Invitation.findOne({ invitation: invitationParam.token })) {
         throw 'This invitation is already registed';
     }
 
@@ -43,7 +43,7 @@ async function update(id, invitationParam) {
 
     // validate
     if (!invitation) throw 'Invitation not found';
-    if (invitation.invitation !== invitationParam.invitation && await Invitation.findOne({ invitation: invitationParam.invitation })) {
+    if (invitation.token !== invitationParam.token && await Invitation.findOne({ invitation: invitationParam.token })) {
         throw 'This invitation is already registed';
     }
 

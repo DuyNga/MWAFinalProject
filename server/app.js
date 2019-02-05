@@ -10,10 +10,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(cors());
 
-// app.use(jwt());
-
 app.use('/user', require('./users/users.controler'));
 app.use('/question', require('./questions/questions.controller'));
+app.use('/invitation', require('./invitations/invitations.controller'));
 
 app.use(error);
 
