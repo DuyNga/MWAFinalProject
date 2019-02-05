@@ -14,8 +14,8 @@ module.exports = {
     updateStatus
 };
 
-async function authenticate({ username, password }) {
-    const user = await User.findOne({ username });
+async function authenticate({ userName, password }) {
+    const user = await User.findOne({ userName });
     if (user && bcrypt.compareSync(password, user.hash)) {
         const { hash, ...userWithoutHash } = user.toObject();
         const token = jwt.sign({ sub: user.id }, config.secret);
@@ -36,8 +36,8 @@ async function getById(id) {
 
 async function create(userParam) {
     // validate
-    if (await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
+    if (await User.findOne({ userName: userParam.userName })) {
+        throw 'userName "' + userParam.userName + '" is already taken';
     }
     
     const user = new User(userParam);
@@ -56,8 +56,8 @@ async function update(id, userParam) {
 
     // validate
     if (!user) throw 'User not found';
-    if (user.username !== userParam.username && await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
+    if (user.userName !== userParam.userName && await User.findOne({ userName: userParam.userName })) {
+        throw 'Username "' + userParam.userName + '" is already taken';
     }
 
     // hash password if it was entered

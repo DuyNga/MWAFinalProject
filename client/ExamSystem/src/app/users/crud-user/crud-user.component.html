@@ -1,3 +1,53 @@
-<p>
-  crud-user works!
-</p>
+<h3>CRUD User</h3>
+<h3>{{data.userName}}</h3>
+<div class="container">
+   
+<form class="form-horizontal crud-container" #formControl="ngForm">
+
+   <mat-form-field
+      [hideRequiredMarker]="crudUserForm.value.hideRequired"
+      [floatLabel]="crudUserForm.value.floatLabel">
+    <input matInput placeholder="User Name" required [(ngModel)]="data.userName" [ngModelOptions]="{ standalone: true }" type="text" name="userName" #userName>
+  </mat-form-field>
+
+  <mat-form-field  [hideRequiredMarker]="crudUserForm.value.hideRequired">
+      <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+       required [(ngModel)]="data.hash" [ngModelOptions]="{ standalone: true }">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field
+      [floatLabel]="crudUserForm.value.floatLabel">
+    <input matInput placeholder="First Name" [(ngModel)]="data.firstName" [ngModelOptions]="{ standalone: true }">
+  </mat-form-field>
+  <mat-form-field
+      [floatLabel]="crudUserForm.value.floatLabel">
+    <input matInput placeholder="Last Name" [(ngModel)]="data.lastName" [ngModelOptions]="{ standalone: true }">
+  </mat-form-field>
+
+  <mat-form-field >
+      <mat-select placeholder="Role" [(ngModel)]="data.role" [ngModelOptions]="{ standalone: true }">
+        <mat-option value="2">Staff</mat-option>
+        <mat-option value="1">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-select placeholder="Status" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
+          <mat-option value="1">Active</mat-option>
+          <mat-option value="0">InActive</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div mat-dialog-actions style="float:right">
+
+          <button class="btn btn-danger" mat-button (click)="cancel()" tabindex="-1">Cancel</button>
+          <button class="btn btn-primary"
+            mat-button
+            [disabled]="!crudUserForm.valid"
+            type="submit"
+            (click)="addNewUser()" >
+            Save
+          </button>
+        </div>
+</form>
+</div>

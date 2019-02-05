@@ -1,3 +1,4 @@
+import { CrudUserComponent } from './users/crud-user/crud-user.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,15 +11,16 @@ import { routingComponent, AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
 import {MaterialModule} from './meterial.module';
 import {MatNativeDateModule} from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
     routingComponent,
+    CrudUserComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +29,10 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
+  entryComponents: [CrudUserComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

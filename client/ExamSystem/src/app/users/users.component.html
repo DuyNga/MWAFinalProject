@@ -1,11 +1,11 @@
 <h3>List User</h3>
 <div class="mat-elevation-z8">
-  <button class="btn btn-primary">Add new user</button>
+
   <table mat-table [dataSource]="dataSource">
 
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef> User Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
     </ng-container>
 
     <ng-container matColumnDef="fullname">
@@ -22,6 +22,24 @@
       <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let element"> {{element.status}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="addNew()" title="Add New">
+            <mat-icon aria-label="Add">add</mat-icon>
+          </button>
+        </th>
+
+        <td mat-cell *matCellDef="let row; let i = index">
+          <button mat-icon-button color="accent" (click)="startEdit(row)" title="Edit User">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent" (click)="deleteItem(row._id)" title="Deactive User">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

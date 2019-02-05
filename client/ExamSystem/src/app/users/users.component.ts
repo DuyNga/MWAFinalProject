@@ -1,7 +1,8 @@
+import { CrudUserComponent } from './crud-user/crud-user.component';
 import { Users } from './users.model';
 import { UsersService } from './users.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-users',
@@ -9,11 +10,12 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['username', 'fullname', 'role', 'status'];
+  displayedColumns: string[] = ['username', 'fullname', 'role', 'status', 'actions'];
   dataSource = new MatTableDataSource<Users>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public usersService: UsersService) { }
+  constructor(public usersService: UsersService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     console.log('User Oninit');
@@ -24,4 +26,35 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  addNew() {
+    console.log('add new click');
+
+
+    const newDialog = this.dialog.open(CrudUserComponent, {
+      width: '80%',
+      height: 'auto',
+      data: { data: '' }
+    });
+
+    newDialog.afterClosed().subscribe(result => {
+      console.log('diaglog close');
+    });
+   }
+  startEdit(data) {
+    console.log(data + 'row Edit click');
+    const editDialog = this.dialog.open(CrudUserComponent, {
+      width: '80%',
+      height: 'auto',
+      data: data
+    });
+    editDialog.afterClosed().subscribe(result => {
+     console.log('diaglog close');
+    });
+  }
+  deleteItem(id) {
+    console.log('Delete click');
+    this.usersService.deactiveUserById(id).subscribe(result => {
+      console.log(result);
+    })
+   }
 }
