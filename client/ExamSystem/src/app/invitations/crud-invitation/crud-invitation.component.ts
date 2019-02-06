@@ -9,6 +9,7 @@ import { Invitations } from '../invitations.model';
   templateUrl: './crud-invitation.component.html',
   styleUrls: ['./crud-invitation.component.css']
 })
+
 export class CrudInvitationComponent implements OnInit {
   crudInvitationForm: FormGroup;
   hide = true;
@@ -33,7 +34,7 @@ export class CrudInvitationComponent implements OnInit {
       this.data = new Invitations();
     }
     if (!data.hasOwnProperty('_id')){
-      this.randomQuestion();
+      this.data.status="Active";
     }
 
   }
@@ -53,8 +54,9 @@ export class CrudInvitationComponent implements OnInit {
 
   }
   sendEmail(){
-    this.data.token="Token";
-    this.data.questionIds=[];
+    if (!this.data.hasOwnProperty('_id')){
+      this.addNewInvitation();
+    }
     console.log(this.data);
     this.invitationService.sendEmail((this.data)).subscribe(result => {
       console.log(result);
@@ -62,7 +64,7 @@ export class CrudInvitationComponent implements OnInit {
 
   }
   addNewInvitation(){
-    this.data.token="Token";
+    this.data.token=this.randomToken();
     this.data.questionIds=[];
     console.log(this.data);
     this.invitationService.addNewInvitation((this.data)).subscribe(result => {
@@ -73,5 +75,12 @@ export class CrudInvitationComponent implements OnInit {
 
   cancel(){
     this.dialogRef.close();
+  }
+  randomToken() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < 5; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
   }
 }

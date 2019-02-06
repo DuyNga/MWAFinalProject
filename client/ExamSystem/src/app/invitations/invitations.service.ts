@@ -26,9 +26,6 @@ export class InvitationsService {
 
   sendEmail(data) {
     data.status="Sent";
-    if (!data.hasOwnProperty('_id')) {
-      return this.addNewInvitation(data);
-    }
     return this.http.post("http://localhost:4000/invitation/send_email",data, {
       headers: this.headers
     });

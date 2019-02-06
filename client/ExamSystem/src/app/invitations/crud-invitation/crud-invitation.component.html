@@ -10,9 +10,11 @@
     </mat-form-field>
     <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
       <input matInput placeholder="Email" required [(ngModel)]="data.email" [ngModelOptions]="{ standalone: true }"
-        type="text">
+        type="text"
+        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        #email="ngModel">
     </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
+    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
       <textarea matInput placeholder="Question 1" required [(ngModel)]="data.questions[0].question" [ngModelOptions]="{ standalone: true }"
         name="invitation" #invitation row=5></textarea>
     </mat-form-field>
@@ -20,7 +22,7 @@
       <textarea matInput placeholder="Answer 1" [(ngModel)]="data.answers[0]" [ngModelOptions]="{ standalone: true }"
         row=5></textarea>
     </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
+    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
       <textarea matInput placeholder="Question 2" required [(ngModel)]="data.questions[1].question" [ngModelOptions]="{ standalone: true }"
         name="invitation" #invitation row=5></textarea>
     </mat-form-field>
@@ -28,7 +30,7 @@
       <textarea matInput placeholder="Answer 2" [(ngModel)]="data.answers[1]" [ngModelOptions]="{ standalone: true }"
         row=5></textarea>
     </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
+    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
       <textarea matInput placeholder="Question 3" required [(ngModel)]="data.questions[2].question" [ngModelOptions]="{ standalone: true }"
         name="invitation" #invitation row=5></textarea>
     </mat-form-field>
@@ -61,13 +63,10 @@
     <div mat-dialog-actions style="float:right">
 
       <button class="btn btn-danger" mat-button (click)="cancel()" tabindex="-1">Cancel</button>
-      <button class="btn btn-primary" mat-button type="submit" (click)="randomQuestion()">
-        Random Question
-      </button>
-      <button class="btn btn-primary" mat-button [disabled]="!crudInvitationForm.valid" type="submit" (click)="sendEmail()">
+      <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="sendEmail()">
         Send Email
       </button>
-      <button class="btn btn-primary" mat-button [disabled]="!crudInvitationForm.valid" type="submit" (click)="addNewInvitation()">
+      <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="addNewInvitation()">
         Save
       </button>
     </div>

@@ -16,7 +16,10 @@ module.exports = router;
 
 function register(req, res, next) {
     invitationService.create(req.body)
-        .then(() => res.json({ status: "Save invitation successfully." }))
+        .then((data) => {
+            res.json({ status: "Save invitation successfully." });
+            console.log("data  "+data);
+        })
         .catch(err => next(err));
 }
 
