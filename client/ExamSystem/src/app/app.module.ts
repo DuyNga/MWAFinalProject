@@ -1,4 +1,5 @@
-import { GuardGuard } from './guard.guard';
+import { RoleGuardService } from './guard/role-guard.service';
+import { GuardGuard } from './guard/guard.guard';
 import { CrudUserComponent } from './users/crud-user/crud-user.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -41,6 +42,7 @@ import { CrudInvitationComponent } from './invitations/crud-invitation/crud-invi
     HttpClientModule,
 
   ],
+  providers: [GuardGuard],
   entryComponents: [CrudUserComponent, CrudQuestionComponent
   , CrudInvitationComponent],
   bootstrap: [AppComponent]

@@ -1,7 +1,8 @@
-import { AuthService } from './login/auth.service';
+import { AuthService } from '../login/auth.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ifError } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class GuardGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      console.log(currentUser);
+      if (currentUser === 'superAdmin') {
+        return true;
+      }
       const token = currentUser.token;
 
       if (token) {
@@ -43,6 +48,7 @@ export class GuardGuard implements CanActivate {
         this.router.navigate(['/login']);
         return false;
       }
+
     return true;
   }
 }

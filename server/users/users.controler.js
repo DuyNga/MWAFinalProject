@@ -21,7 +21,7 @@ module.exports = router;
 function authenticate(req, res, next) {
     console.log(req.body);
     userService.authenticate(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
+        .then(user => user ? res.json(user) : res.status(400).json({ message: JSON.stringify(user) }))
         .catch(err => next(err));
 }
 
@@ -47,13 +47,13 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
     userService.update(req.params.id, req.body)
-        .then(() => res.status(200).json({message: 'OK'}))
+        .then(() => res.status(200).json({message: 'User is updated'}))
         .catch(err => next(err));
 }
 
 function _delete(req, res, next) {
     userService.delete(req.params.id)
-        .then(() => res.json({}))
+        .then(() => res.status(200).json({message: 'User is deleted'}))
         .catch(err => next(err));
 }
 

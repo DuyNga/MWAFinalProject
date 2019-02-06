@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,5 +19,9 @@ export class AuthService {
     return this.http.get('http://localhost:4000/user/verifyToken/' + acesstoken,  {
       headers: headers
     });
+  }
+  decode() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return decode(currentUser.token);
   }
 }

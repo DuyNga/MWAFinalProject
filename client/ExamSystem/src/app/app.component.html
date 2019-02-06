@@ -3,15 +3,24 @@
       <a class="navbar-brand" [routerLink]="['index']">Exam System</a>
       <div class="navbar-expand mr-auto">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" [routerLink]="['index']">Home</a>
-          <a class="nav-item nav-link" [routerLink]="['admin/users']">User</a>
-          <a class="nav-item nav-link"  [routerLink]="['admin/questions']">Question</a>
-          <a class="nav-item nav-link"  [routerLink]="['admin/invitations']">Question</a>
+          <a class="nav-item nav-link " [routerLink]="['index']" [routerLinkActive]="'active'">Home</a>
+          <!-- <a class="nav-item nav-link" [routerLink]="['admin/users']" [routerLinkActive]="'active'">User</a>
+          <a class="nav-item nav-link"  [routerLink]="['admin/questions']" [routerLinkActive]="'active'">Question</a>
+          <a class="nav-item nav-link"  [routerLink]="['admin/invitations']" [routerLinkActive]="'active'">Invitation</a> -->
+          <li class="nav-item" *ngFor="let link of links">
+              <a class="nav-link" [routerLink]="link.path">{{ link.text }}</a>
+            </li>
         </div>
       </div>
       <div>
-        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right" *ngIf='!isLogin'>Login</a>
-        <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right"  *ngIf='isLogin'>Logout</a>
+        <!-- <a class="nav-item nav-link right" [routerLink]="['login']" style="float:right" *ngIf="!isLogin">Login {{isLogin}}</a>
+        <a class="nav-item nav-link right" [routerLink]="" (click)="logOut()" style="float:right" *ngIf="isLogin">Logout {{isLogin}}</a> -->
+        <li class="nav-item nav-link right" *ngIf="isLoggedIn">
+            <a class="nav-link" routerLink="logout" (click)="logOut()">Log Out</a>
+          </li>
+          <li class="nav-item nav-link right" *ngIf="!isLoggedIn">
+              <a class="nav-link" [routerLink]="['login']">Log In</a>
+            </li>
       </div>
     </nav>
     <div class="container">

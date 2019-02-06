@@ -15,7 +15,7 @@ module.exports = {
 };
 
 async function getRandom(){
-    return await Question.aggregate().sample(3);
+    return await Question.aggregate([ {$match: {status:'active'}}]).sample(3);
 }
 
 async function getAll() {

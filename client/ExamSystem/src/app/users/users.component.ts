@@ -53,6 +53,13 @@ export class UsersComponent implements OnInit {
       this.loadData();
     });
    }
+   delete(id) {
+    console.log('Delete click');
+    this.usersService.   deleteUserById
+    (id).subscribe(result => {
+      this.loadData();
+    });
+   }
 
    public loadData() {
     this.usersService.getAllUser().subscribe(result => {

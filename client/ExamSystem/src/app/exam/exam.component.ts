@@ -1,3 +1,4 @@
+import { ExamService } from './exam.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExamComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private examService: ExamService) { }
+  result;
   ngOnInit() {
+    this.examService.getRandom().subscribe(result => {
+      this.result =result;
+    });
   }
 
 }
