@@ -1,8 +1,9 @@
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog,MatDialogRef } from '@angular/material';
 import { InvitationsService } from '../invitations.service';
 import { Invitations } from '../invitations.model';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-crud-invitation',
@@ -15,6 +16,7 @@ export class CrudInvitationComponent implements OnInit {
   hide = true;
   isShowAnswer = false;
   isShowResult = false;
+  @Output() onAdd = new EventEmitter;
   constructor(fb: FormBuilder,
     private invitationService: InvitationsService,
     @Inject(MAT_DIALOG_DATA,
@@ -34,7 +36,7 @@ export class CrudInvitationComponent implements OnInit {
       this.data = new Invitations();
     }
     if (!data.hasOwnProperty('_id')){
-      this.data.status="Active";
+      this.data.status="Not Sent";
     }
 
   }
@@ -70,7 +72,8 @@ export class CrudInvitationComponent implements OnInit {
     this.invitationService.addNewInvitation((this.data)).subscribe(result => {
       console.log(result);
     });
-
+    this.onAdd.emit('');
+    this.cancel();
   }
 
   cancel(){

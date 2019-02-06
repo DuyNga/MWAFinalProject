@@ -49,23 +49,20 @@
 
     <mat-form-field>
       <mat-select placeholder="Status" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
-        <!-- <mat-option value="Not Sent">Not Sent</mat-option>
+        <mat-option value="Not Sent">Not Sent</mat-option>
         <mat-option value="Sent">Sent</mat-option>
         <mat-option value="Clicked">Clicked</mat-option>
         <mat-option value="Answered">Answered</mat-option>
         <mat-option value="Finished">Finished</mat-option>
-        <mat-option value="Deactive">Deactive</mat-option> -->
-        <mat-option value="Active">Active</mat-option>
         <mat-option value="Deactive">Deactive</mat-option>
+        <!-- <mat-option value="Active">Active</mat-option>
+        <mat-option value="Deactive">Deactive</mat-option> -->
       </mat-select>
     </mat-form-field>
 
     <div mat-dialog-actions style="float:right">
 
       <button class="btn btn-danger" mat-button (click)="cancel()" tabindex="-1">Cancel</button>
-      <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="sendEmail()">
-        Send Email
-      </button>
       <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="addNewInvitation()">
         Save
       </button>

@@ -19,7 +19,8 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    updateStatus
 };
 
 async function sendEmail(invitationParam) {
@@ -61,7 +62,13 @@ async function create(invitationParam) {
     const invitation = new Invitation(invitationParam);
 
     // save invitation
-    await invitation.save();
+    await invitation.save((function (_id) {
+        return function () {
+          console.log(_id);
+          return _id;
+          // your save callback code in here
+        };
+      })(invitation._id));
 }
 
 async function update(id, invitationParam) {
@@ -81,4 +88,19 @@ async function update(id, invitationParam) {
 
 async function _delete(id) {
     await Invitation.findByIdAndRemove(id);
+}
+
+async function updateStatus(id, invitationParam) {
+    const invitation = await Invitation.findById(id);
+    console.log(invitation);
+    // validate
+    if (!invitation) throw 'Invitation not found';
+ 
+    if(invitation.status==='Deactive'){
+       invitation.status ='Active';
+    }else{
+        invitation.status ='Deactive';
+    }
+
+    await invitation.save();
 }
