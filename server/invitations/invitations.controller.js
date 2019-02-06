@@ -6,7 +6,7 @@ var ObjectId = require('mongodb').ObjectID;
 // routes
 router.post('/add', register);
 router.get('/get_all', getAll);
-router.get('/send_email', sendEmail);
+router.post('/send_email', sendEmail);
 router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
@@ -28,8 +28,8 @@ function getAll(req, res, next) {
 
 function sendEmail(req, res, next) {
     let body = req.body;
-    body.link = ` Zữ Zằn
-    https://www.youtube.com/watch?v=-X79Jko9bBI`;
+    body.link = ` Zữ zằn ◕ ‿ ◕
+    https://www.youtube.com/watch?v=FoCG-WNsZio`;
     invitationService.sendEmail(body)
         .then(invitations => res.json({status:"Send mail successfully."}))
         .catch(err => next(err));
