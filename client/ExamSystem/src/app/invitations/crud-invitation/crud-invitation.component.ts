@@ -38,6 +38,12 @@ export class CrudInvitationComponent implements OnInit {
     if (!data.hasOwnProperty('_id')){
       this.data.status="Not Sent";
     }
+    if (data.hasOwnProperty('submittedAnswer')){
+      this.isShowResult=true;
+      this.isShowAnswer=true;
+    }
+    this.data.answers=['a','b','c'];
+    this.data.questions=['a1','b1','c1'];
 
   }
 

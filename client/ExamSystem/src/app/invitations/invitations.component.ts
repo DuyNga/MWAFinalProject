@@ -27,7 +27,7 @@ export class InvitationsComponent implements OnInit {
     console.log('add new click');
     const newDialog = this.dialog.open(CrudInvitationComponent, {
       width: '80%',
-      height: 'auto',
+      minHeight: '300px',
       data: { data: '' }
     });
 
@@ -35,12 +35,18 @@ export class InvitationsComponent implements OnInit {
       this.loadData();
     });
   }
+  sendEmail(data){
+    this.invitationService.sendEmail((data)).subscribe(result => {
+      console.log(result);
+    });
+
+  }
   startEdit(data) {
     console.log(data + 'row Edit click');
     const editDialog = this.dialog.open(CrudInvitationComponent, {
       width: '80%',
       height: 'auto',
-      data: data, disableClose: true
+      data: data
     });
     editDialog.componentInstance.onAdd.subscribe((data: any) => {
       this.loadData();
