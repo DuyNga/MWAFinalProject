@@ -17,21 +17,14 @@ export class AppComponent implements OnInit {
   links: Array<{ text: string, path: string }>;
   isLoggedIn = false;
   constructor( private router: Router, public loginComponent: LoginService, private navService: NavService) {
-    // this.loginComponent.getLoggedInName.subscribe(result => {
-    //   console.log(result)
-    //   if ( result != null ) {
-    //     this.isLoggedIn = true;
-    //   } else {
-    //     this.isLoggedIn = false;
-    //   }
-    // });
+
     this.navService.getLoginStatus().subscribe(status => this.isLoggedIn = status);
 
   }
   ngOnInit ( ) {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(user);
-    if (this.user != null) {
+
+    if (user != null) {
       this.isLoggedIn = true;
       if (user.role === '1' || user.role === 'admin') {
         this.navService.updateNavAfterAuth('admin');

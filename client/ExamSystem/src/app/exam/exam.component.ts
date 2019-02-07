@@ -22,35 +22,46 @@ export class ExamComponent implements OnInit {
   decodeToken;
   constructor(private examService: ExamService, public dialog: MatDialog, private router: Router
     , private invitationService : InvitationsService, fb: FormBuilder, ) {
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    //   if(result === undefined || result === false){
-    //     this.randomQuestion();
-    //   }
-    // });
+
     this.data = new Questions();
     this.exam = fb.group({
       floatLabel: 'auto',
     });
     const token = this.router.url.split('/')[2];
+    const decodeToken = decode(token);
     console.log(decode(token));
     this.decodeToken = decode(token);
-    const isValidToken = this.tokenVerification(token);
-    //if (isValidToken  === 1){
-      const dialogRef = this.dialog.open(AgreementComponent);
+    this.tokenVerification(token, (valid) => {
+      console.log(valid);
+      console.log(decodeToken);
+      console.log(decodeToken.invInfo.id);
+      if(valid===1){
+        this.invitationService.getInvitationById(decodeToken.invInfo.id).subscribe(result=>{
 
-      dialogRef.afterClosed().toPromise().then(
-        res => { // Success
-          if(res !== undefined && res !== false){
-                this.randomQuestion();
-                this.examService.addTokenToBlackList(JSON.stringify({token : token})).subscribe(result=> console.log("token used"));
-        }
+            if(result.id == decodeToken.invInfo.id
+              && result.email == decodeToken.invInfo.email
+              && result.inviteeName == decodeToken.invInfo.name){
+                const dialogRef = this.dialog.open(AgreementComponent);
+
+                dialogRef.afterClosed().toPromise().then(
+                  res => { // Success
+                    if(res !== undefined && res !== false){
+                          this.randomQuestion();
+                          this.examService.addTokenToBlackList(JSON.stringify({token : token}))
+                          .subscribe(usedToken => console.log("token used"));
+                  }
+                }
+                );
+            } else {
+              this.errorMess = 'Incorrect Token! System will automatic redirect in to home page in 5 seconds!';
+              setTimeout(function(){ router.navigate(['/index']); }, 5000);
+            }
+        });
+      } else {
+        this.errorMess = 'Your session is ended! System will automatic redirect in to home page in 5 seconds!';
+        setTimeout(function(){ router.navigate(['/index']); }, 5000);
       }
-      );
-    // } else if(isValidToken === 0){
-    //   this.errorMess = 'Your session is ended!';
-    // }
-
+    });
    }
 
    ngOnInit() {
@@ -71,32 +82,28 @@ export class ExamComponent implements OnInit {
     return decode(token);
   }
 
- async tokenVerification(token){
-    let isValid = 0;
+  tokenVerification(token, callBack){
      this.examService.getBlackListToken(token).subscribe(result =>{
       console.log(result);
-      if(!result && result[0].token ===token){
-         isValid = 0;
-      } else {
-         isValid = 1;
-      }
+      if(result !== null)
+        {
+          if(result.token !== undefined && result.token ===token){
+            callBack (0);
+
+          } else {
+          callBack(1);
+      }}else {
+        callBack(1);
+    }
     });
-
-    // const decodeToken = decode(token);
-    // console.log(decodeToken);
-
-    // console.log(JSON.parse(decodeToken.info)._id);
-    // const invi = JSON.parse(decodeToken.info);
-    // this.invitationService.getInvitationById(invi._id).toPromise().then(result=>{
-    //     console.log(result);
-    // });
-    return isValid;
   }
 
   submitAnswer(){
     const data = {id : this.decodeToken.invInfo.id, submittedAnswer : this.result};
     this.examService.submitAnswer(data).subscribe(result =>{
-      console.log(result);
+      alert('Thanks you, your answer is submitted. You will be redirect to homepage after click OK');
+      this.router.navigate(['/index']);
     });
   }
 }
+
