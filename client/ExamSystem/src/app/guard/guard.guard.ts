@@ -27,13 +27,13 @@ export class GuardGuard implements CanActivate {
         this.authService.getUserInfo(token).subscribe(
           response => {
             if (response.role === '1') {
-              this.navService.updateNavAfterAuth('admin');
+              this.navService.updateNavAfterAuth('Admin');
               this.navService.updateLoginStatus(true);
               this.router.navigate(['/admin/invitations']);
               // This means already logged-in
               return true;
             } else if (response.role === '2') {
-              this.navService.updateNavAfterAuth('staff');
+              this.navService.updateNavAfterAuth('Staff');
               this.navService.updateLoginStatus(true);
               this.router.navigate(['/admin/invitations']);
               // This means already logged-in

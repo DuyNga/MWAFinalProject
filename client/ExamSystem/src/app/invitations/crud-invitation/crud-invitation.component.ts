@@ -28,7 +28,7 @@ export class CrudInvitationComponent implements OnInit {
     this.crudInvitationForm = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
-      role: 'staff',
+      role: 'Staff',
       status: 'active'
     });
     if ( data == null ) {

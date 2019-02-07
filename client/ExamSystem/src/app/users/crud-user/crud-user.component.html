@@ -26,15 +26,15 @@
 
   <mat-form-field >
       <mat-select placeholder="Role" [(ngModel)]="data.role" [ngModelOptions]="{ standalone: true }">
-        <mat-option value="2">Staff</mat-option>
-        <mat-option value="1">Admin</mat-option>
+        <mat-option value="Staff">Staff</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field >
         <mat-select placeholder="Status" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
-          <mat-option value="1">Active</mat-option>
-          <mat-option value="0">InActive</mat-option>
+          <mat-option value="Active">Active</mat-option>
+          <mat-option value="Deactive">Deactive</mat-option>
         </mat-select>
       </mat-form-field>
 

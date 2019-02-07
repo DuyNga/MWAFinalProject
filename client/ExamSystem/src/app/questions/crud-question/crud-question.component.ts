@@ -24,7 +24,7 @@ export class CrudQuestionComponent implements OnInit {
     this.crudQuestionForm = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
-      role: 'staff',
+      role: 'Staff',
       status: 'active'
     });
     if ( data == null ) {

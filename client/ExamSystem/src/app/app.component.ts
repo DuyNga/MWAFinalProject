@@ -26,12 +26,12 @@ export class AppComponent implements OnInit {
 
     if (user != null) {
       this.isLoggedIn = true;
-      if (user.role === '1' || user.role === 'admin') {
-        this.navService.updateNavAfterAuth('admin');
+      if (user.role === '1' || user.role === 'Admin') {
+        this.navService.updateNavAfterAuth('Admin');
         this.navService.updateLoginStatus(true);
-      } else if (user.role === '2' || user.role === 'staff') {
+      } else if (user.role === '2' || user.role === 'Staff') {
         this.navService.updateLoginStatus(true);
-        this.navService.updateNavAfterAuth('staff');
+        this.navService.updateNavAfterAuth('Staff');
       }
     } else {
       this.isLoggedIn = false;

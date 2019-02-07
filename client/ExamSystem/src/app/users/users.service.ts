@@ -17,9 +17,16 @@ export class UsersService {
   }
 
   addNewUser(data) {
-    return this.http.post('http://localhost:4000/user/register', data, {
-      headers: this.headers
-    });
+    if (data.hasOwnProperty('_id')) {
+      return this.http.put('http://localhost:4000/user/' + data._id,data, {
+        headers: this.headers
+      });
+    }
+    else {
+      return this.http.post('http://localhost:4000/user/register', data, {
+        headers: this.headers
+      });
+    }
   }
   deactiveUserById(id) {
     return this.http.put('http://localhost:4000/user/updatestatus/' + id, {

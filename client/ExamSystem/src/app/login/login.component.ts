@@ -39,12 +39,12 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       localStorage.clear();
       localStorage.setItem('currentUser', JSON.stringify(result));
-      if (result.role === '1') {
-        this.navService.updateNavAfterAuth('admin');
+      if (result.role === 'Admin') {
+        this.navService.updateNavAfterAuth('Admin');
         this.navService.updateLoginStatus(true);
         this.router.navigate(['/admin/users']);
-      } else if (result.role === '2') {
-        this.navService.updateNavAfterAuth('staff');
+      } else if (result.role === 'Staff') {
+        this.navService.updateNavAfterAuth('Staff');
         this.navService.updateLoginStatus(true);
         this.router.navigate(['admin/invitations']);
       }
