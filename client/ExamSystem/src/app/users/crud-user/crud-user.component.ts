@@ -22,7 +22,7 @@ export class CrudUserComponent implements OnInit {
     this.crudUserForm = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
-      role: 'staff',
+      role: 'Staff',
       status: 'active'
     });
     if ( data == null ) {
@@ -40,7 +40,8 @@ export class CrudUserComponent implements OnInit {
   }
   addNewUser() {
     console.log(this.data);
-    this.userService.addNewUser(JSON.stringify(this.data)).subscribe(result => {
+    this.userService.addNewUser(this.data).subscribe(result => {
+      this.dialogRef.close();
       console.log(result);
       this.dialogRef.close();
     });

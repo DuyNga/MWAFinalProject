@@ -84,10 +84,10 @@ async function updateStatus(id, userParam) {
     // validate
     if (!user) throw 'User not found';
  
-    if(user.status==='active'){
-       user.status ='deactive';
+    if(user.status==='Active'){
+       user.status ='Deactive';
     }else{
-        user.status ='active';
+        user.status ='Active';
     }
 
     await user.save();

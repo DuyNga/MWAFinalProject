@@ -34,10 +34,10 @@ export class NavService {
   updateNavAfterAuth(role: string): void {
     //this.removeItem({ text: 'Login' });
 
-    if (role === '1' || role === 'admin') {
+    if (role === '1' || role === 'Admin') {
       this.addItem({ text: 'Manage User', path: 'admin/users' });
       this.addItem({ text: 'Manage Question', path: 'admin/questions' });
-    } else if (role === '2' || role === 'staff') {
+    } else if (role === '2' || role === 'Staff') {
       this.addItem({ text: 'Manage Invitation', path: 'admin/invitations' });
     }
   }
