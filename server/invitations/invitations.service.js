@@ -105,6 +105,7 @@ async function updateAnswer(invitationParam) {
     // copy invitationParam properties to invitation
    
     invitation.submittedAnswer =(invitationParam.submittedAnswer);
+    invitation.status="Answered";
 
     await invitation.save();
 }

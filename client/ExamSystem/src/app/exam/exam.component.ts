@@ -72,7 +72,7 @@ export class ExamComponent implements OnInit {
     this.examService.getRandom().subscribe(result =>{
       this.result = result;
       result.forEach(element => {
-        element.sampleAnswer = '';
+        element.answer = '';
       });
     });
 

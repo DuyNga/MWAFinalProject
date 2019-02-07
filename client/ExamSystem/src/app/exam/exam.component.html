@@ -11,7 +11,7 @@
 
         <mat-form-field
             [floatLabel]="exam.value.floatLabel">
-          <input matInput placeholder="Q{{i+1}}: {{question.question}}"  type="text" name="{{question._id}}" [(ngModel)]='question.sampleAnswer' #{{question._id}}>
+          <input matInput placeholder="Q{{i+1}}: {{question.question}}"  type="text" name="{{question._id}}" [(ngModel)]='question.answer' #{{question._id}}>
         </mat-form-field>
       </p>
       <button *ngIf="result" type="submit" (click)="submitAnswer()" >Submit</button>
