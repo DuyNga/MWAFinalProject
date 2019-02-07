@@ -1,3 +1,4 @@
+import { StaffGuard } from './guard/staff.guard';
 import { RoleGuardService } from './guard/role-guard.service';
 import { GuardGuard } from './guard/guard.guard';
 import { CrudUserComponent } from './users/crud-user/crud-user.component';
@@ -44,7 +45,7 @@ import { AgreementComponent } from './exam/agreement/agreement.component';
     HttpClientModule,
 
   ],
-  providers: [GuardGuard],
+  providers: [GuardGuard, StaffGuard],
   entryComponents: [CrudUserComponent, CrudQuestionComponent, AgreementComponent
   , CrudInvitationComponent, ],
   bootstrap: [AppComponent]

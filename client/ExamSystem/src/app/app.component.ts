@@ -26,14 +26,15 @@ export class AppComponent implements OnInit {
 
     if (user != null) {
       this.isLoggedIn = true;
-      if (user.role === '1' || user.role === 'admin') {
+      if (user.role === '1' || user.role.toLowerCase() === 'admin') {
         this.navService.updateNavAfterAuth('admin');
         this.navService.updateLoginStatus(true);
-      } else if (user.role === '2' || user.role === 'staff') {
+      } else if (user.role === '2' || user.role.toLowerCase() === 'staff') {
         this.navService.updateLoginStatus(true);
         this.navService.updateNavAfterAuth('staff');
       }
     } else {
+      this.navService.updateLoginStatus(false);
       this.isLoggedIn = false;
     }
     this.links = this.navService.getLinks();

@@ -1,39 +1,39 @@
-import { NavService } from './../service/nav.service';
-import { AuthService } from '../login/auth.service';
+import { AuthService } from './../login/auth.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ifError } from 'assert';
+import { NavService } from '../service/nav.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private authService: AuthService, private navService:NavService
-  ) {}
+export class StaffGuard implements CanActivate {
+  constructor(private router: Router,
+    private authService: AuthService, private navService:NavService){}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      console.log(currentUser);
+      console.log("Staff Gaurd");
       if (currentUser === 'superAdmin') {
         return true;
       }
       const token = currentUser.token;
 
       if (token) {
+        console.log("subcribe");
+
         this.authService.getUserInfo(token).subscribe(
           response => {
-            if (response.role === '1') {
-              this.navService.updateNavAfterAuth('admin');
+
+           console.log("subcribe");
+
+            if (response.role === '2' || response.role.toLowerCase() === 'staff'){
+              this.navService.updateNavAfterAuth('staff');
               this.navService.updateLoginStatus(true);
               this.router.navigate(['/admin/invitations']);
-              // This means already logged-in
               return true;
             } else {
-              // This means token expire
               localStorage.clear();
               this.router.navigate(['/login']);
               return false;
@@ -46,10 +46,8 @@ export class GuardGuard implements CanActivate {
           }
         );
       } else {
-        // not logged in so redirect to login page
         this.router.navigate(['/login']);
         return false;
       }
-    return true;
   }
 }

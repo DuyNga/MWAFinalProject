@@ -27,12 +27,12 @@ export class NavService {
 
     if (!status) {
       this.clearAllItems();
-      this.addItem({ text: 'Login', path: 'login' });
+     // this.addItem({ text: 'Login', path: 'login' });
     }
   }
 
   updateNavAfterAuth(role: string): void {
-    this.removeItem({ text: 'Login' });
+    //this.removeItem({ text: 'Login' });
 
     if (role === '1' || role === 'admin') {
       this.addItem({ text: 'Manage User', path: 'admin/users' });

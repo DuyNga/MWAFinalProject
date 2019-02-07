@@ -31,20 +31,21 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     console.log(this.loginForm.value);
     if (this.loginForm.value.userName === 'superAdmin' && this.loginForm.value.password === 'superAdmin') {
+
       localStorage.clear();
       localStorage.setItem('currentUser', JSON.stringify(this.loginForm.value.userName));
       this.router.navigate(['/admin/users']);
     } else {
-    this.loginService.login(JSON.stringify(this.loginForm.value)).subscribe(result => {
+      this.loginService.login(JSON.stringify(this.loginForm.value)).subscribe(result => {
       this.loading = true;
       localStorage.clear();
       localStorage.setItem('currentUser', JSON.stringify(result));
-      if (result.role === '1') {
-        this.navService.updateNavAfterAuth('admin');
+      if (result.role === '1' || result.role.toLowerCase() === 'admin') {
+      this.navService.updateNavAfterAuth('admin');
         this.navService.updateLoginStatus(true);
         this.router.navigate(['/admin/users']);
-      } else if (result.role === '2') {
-        this.navService.updateNavAfterAuth('staff');
+      } else if (result.role === '2' || result.role.toLowerCase() === 'staff') {
+      this.navService.updateNavAfterAuth('staff');
         this.navService.updateLoginStatus(true);
         this.router.navigate(['admin/invitations']);
       }

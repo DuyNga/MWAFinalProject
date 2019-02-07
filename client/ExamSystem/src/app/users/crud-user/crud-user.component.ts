@@ -42,6 +42,7 @@ export class CrudUserComponent implements OnInit {
     console.log(this.data);
     this.userService.addNewUser(JSON.stringify(this.data)).subscribe(result => {
       console.log(result);
+      this.dialogRef.close();
     });
 
   }

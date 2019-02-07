@@ -1,3 +1,4 @@
+import { StaffGuard } from './guard/staff.guard';
 import { RoleGuardService } from './guard/role-guard.service';
 import { GuardGuard } from './guard/guard.guard';
 import { LoginComponent } from './login/login.component';
@@ -12,14 +13,14 @@ import { InvitationsComponent } from './invitations/invitations.component';
 import { ExamComponent } from './exam/exam.component';
 
 const routes: Routes = [
-  { path: 'admin/questions', component: QuestionsComponent, canActivate: [GuardGuard] },
-  { path: 'admin/users', component: UsersComponent, canActivate: [GuardGuard], data: { role: '1' } },
-  { path: 'admin/invitations', component: InvitationsComponent, canActivate: [GuardGuard] },
+  { path: 'admin/questions', component: QuestionsComponent, canActivate: [GuardGuard] , data: { role: 'Admin' }},
+  { path: 'admin/users', component: UsersComponent, canActivate: [GuardGuard], data: { role: 'Admin' } },
+  { path: 'admin/invitations', component: InvitationsComponent, canActivate: [StaffGuard], data: { role: 'Staff' } },
   { path: 'index', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'exam/:token', component: ExamComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
