@@ -19,6 +19,10 @@
           name="invitation" #invitation  readonly></textarea>
       </mat-form-field>
       <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
+        <textarea matInput placeholder="Sample Answer 1" [(ngModel)]="data.submittedAnswer[0].sampleAnswer" [ngModelOptions]="{ standalone: true }"
+        readonly ></textarea>
+      </mat-form-field>
+      <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
         <textarea matInput placeholder="Answer 1" [(ngModel)]="data.submittedAnswer[0].answer" [ngModelOptions]="{ standalone: true }"
         readonly ></textarea>
       </mat-form-field>
@@ -27,12 +31,20 @@
           name="invitation" #invitation readonly></textarea>
       </mat-form-field>
       <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
+        <textarea matInput placeholder="Sample Answer 2" [(ngModel)]="data.submittedAnswer[1].sampleAnswer" [ngModelOptions]="{ standalone: true }"
+        readonly></textarea>
+      </mat-form-field>
+      <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
         <textarea matInput placeholder="Answer 2" [(ngModel)]="data.submittedAnswer[1].answer" [ngModelOptions]="{ standalone: true }"
         readonly></textarea>
       </mat-form-field>
       <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
         <textarea matInput placeholder="Question 3" required [(ngModel)]="data.submittedAnswer[2].question" [ngModelOptions]="{ standalone: true }"
           name="invitation" #invitation readonly></textarea>
+      </mat-form-field>
+      <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
+        <textarea matInput placeholder="Sample Answer 3" [(ngModel)]="data.submittedAnswer[2].sampleAnswer" [ngModelOptions]="{ standalone: true }"
+        readonly></textarea>
       </mat-form-field>
       <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
         <textarea matInput placeholder="Answer 3" [(ngModel)]="data.submittedAnswer[2].answer" [ngModelOptions]="{ standalone: true }"

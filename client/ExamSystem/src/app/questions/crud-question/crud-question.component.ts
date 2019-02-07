@@ -30,6 +30,7 @@ export class CrudQuestionComponent implements OnInit {
     if ( data == null ) {
       console.log("set new");
       this.data = new Questions();
+      this.data.status="Active";
     }
 
   }
@@ -44,6 +45,7 @@ export class CrudQuestionComponent implements OnInit {
   addNewQuestion(){
     this.questionService.addNewQuestion((this.data)).subscribe(result => {
       console.log(result);
+      this.dialogRef.close();
     });
 
   }
