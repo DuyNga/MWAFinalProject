@@ -2,6 +2,7 @@
   <div class="form-horizontal crud-container">
       <h3>Welcome to exam system </h3>
     <h2>{{errorMess}}</h2>
+    <h3>Time Left: {{timeLeft}}</h3>
     <form #formControl="ngForm">
       <p *ngFor='let question of result; let i = index' [attr.data-index]="i">
 

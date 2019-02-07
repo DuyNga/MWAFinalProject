@@ -14,40 +14,22 @@ export class StaffGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      console.log("Staff Gaurd");
       if (currentUser === 'superAdmin') {
         return true;
       }
       const token = currentUser.token;
-
-      if (token) {
-        console.log("subcribe");
-
-        this.authService.getUserInfo(token).subscribe(
-          response => {
-
-           console.log("subcribe");
-
-            if (response.role === '2' || response.role.toLowerCase() === 'staff'){
-              this.navService.updateNavAfterAuth('staff');
-              this.navService.updateLoginStatus(true);
-              this.router.navigate(['/admin/invitations']);
-              return true;
-            } else {
-              localStorage.clear();
-              this.router.navigate(['/login']);
-              return false;
-            }
-          },
-          err => {
-            localStorage.clear();
-            this.router.navigate(['/login']);
-            return false;
-          }
-        );
+      if(currentUser!==null){
+        if (currentUser.role === 'Staff') {
+          return true;
+        } else {
+          alert("You are not authorized for this page!!!! \n You will be redirect to index now!!!")
+          this.router.navigate(['/index']);
+          return false;
+        }
       } else {
         this.router.navigate(['/login']);
         return false;
       }
+
   }
 }

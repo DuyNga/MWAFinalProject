@@ -11,7 +11,6 @@ import { CrudInvitationComponent } from './crud-invitation/crud-invitation.compo
 })
 export class InvitationsComponent implements OnInit {
   displayedColumns: string[] = ['inviteeName', 'email', 'result', 'status', 'actions'];
-  // displayedColumns: string[] = [ 'email','result','status', 'actions'];
   dataSource = new MatTableDataSource<Invitations>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -20,6 +20,8 @@ export class ExamComponent implements OnInit {
   exam: FormGroup;
   data: any;
   decodeToken;
+  timeLeft;
+  interval;
   constructor(private examService: ExamService, public dialog: MatDialog, private router: Router
     , private invitationService : InvitationsService, fb: FormBuilder, ) {
 
@@ -38,24 +40,32 @@ export class ExamComponent implements OnInit {
       if(valid===1){
         this.invitationService.getInvitationById(decodeToken.invInfo.id).subscribe(result=>{
 
-            // if(result.id == decodeToken.invInfo.id
-            //   && result.email == decodeToken.invInfo.email
-            //   && result.inviteeName == decodeToken.invInfo.name){
-            //     const dialogRef = this.dialog.open(AgreementComponent);
+            if(result.id == decodeToken.invInfo.id
+              && result.email == decodeToken.invInfo.email
+              && result.inviteeName == decodeToken.invInfo.name){
+                const dialogRef = this.dialog.open(AgreementComponent);
 
-            //     dialogRef.afterClosed().toPromise().then(
-            //       res => { // Success
-            //         if(res !== undefined && res !== false){
-            //               this.randomQuestion();
-            //               this.examService.addTokenToBlackList(JSON.stringify({token : token}))
-            //               .subscribe(usedToken => console.log("token used"));
-            //       }
-            //     }
-            //     );
-            // } else {
-            //   this.errorMess = 'Incorrect Token! System will automatic redirect in to home page in 5 seconds!';
-            //   setTimeout(function(){ router.navigate(['/index']); }, 5000);
-            // }
+                dialogRef.afterClosed().toPromise().then(
+                  res => { // Success
+                    if(res !== undefined && res !== false){
+                          this.randomQuestion();
+                          this.examService.addTokenToBlackList(JSON.stringify({token : token}))
+                          .subscribe(usedToken => console.log("token used"));
+                          // this.timeLeft = 60;
+                          // this.interval = setInterval(() => {
+                          //   if(this.timeLeft > 0) {
+                          //     this.timeLeft--;
+                          //   } else {
+                          //     this.timeLeft = 60;
+                          //   }
+                          // },1000)
+                  }
+                }
+                );
+            } else {
+              this.errorMess = 'Incorrect Token! System will automatic redirect in to home page in 5 seconds!';
+              setTimeout(function(){ router.navigate(['/index']); }, 5000);
+            }
         });
       } else {
         this.errorMess = 'Your session is ended! System will automatic redirect in to home page in 5 seconds!';
