@@ -26,6 +26,11 @@ export class InvitationsService {
 
   sendEmail(data) {
     data.status="Sent";
+    console.log("service send mail");
+    console.log(data.id);
+    this.http.put('http://localhost:4000/invitation/' + data.id,data, {
+      headers: this.headers
+    });
     return this.http.post("http://localhost:4000/invitation/send_email",data, {
       headers: this.headers
     });
