@@ -125,6 +125,7 @@ async function addTokenToBlackList(token) {
 
 async function getBlackListToken(token) {
    return await BlackList.find({ token: token });
+}
 
 async function updateStatus(id, invitationParam) {
     const invitation = await Invitation.findById(id);
