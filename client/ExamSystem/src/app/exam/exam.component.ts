@@ -20,8 +20,9 @@ export class ExamComponent implements OnInit {
   exam: FormGroup;
   data: any;
   decodeToken;
-  timeLeft;
+  timeLeft = 120;
   interval;
+  questionStorage;
   constructor(private examService: ExamService, public dialog: MatDialog, private router: Router
     , private invitationService : InvitationsService, fb: FormBuilder, ) {
 
@@ -33,10 +34,9 @@ export class ExamComponent implements OnInit {
     const decodeToken = decode(token);
     console.log(decode(token));
     this.decodeToken = decode(token);
+    this.questionStorage = localStorage.getItem('question');
+    console.log( this.questionStorage );
     this.tokenVerification(token, (valid) => {
-      console.log(valid);
-      console.log(decodeToken);
-      console.log(decodeToken.invInfo.id);
       if(valid===1){
         this.invitationService.getInvitationById(decodeToken.invInfo.id).subscribe(result=>{
 
@@ -51,14 +51,7 @@ export class ExamComponent implements OnInit {
                           this.randomQuestion();
                           this.examService.addTokenToBlackList(JSON.stringify({token : token}))
                           .subscribe(usedToken => console.log("token used"));
-                          // this.timeLeft = 60;
-                          // this.interval = setInterval(() => {
-                          //   if(this.timeLeft > 0) {
-                          //     this.timeLeft--;
-                          //   } else {
-                          //     this.timeLeft = 60;
-                          //   }
-                          // },1000)
+                         this.timerCountdown();
                   }
                 }
                 );
@@ -84,6 +77,7 @@ export class ExamComponent implements OnInit {
       result.forEach(element => {
         element.answer = '';
       });
+      localStorage.setItem('question', result);
     });
 
   }
@@ -106,10 +100,22 @@ export class ExamComponent implements OnInit {
 
   submitAnswer(){
     const data = {id : this.decodeToken.invInfo.id, submittedAnswer : this.result};
+    localStorage.removeItem('question');
     this.examService.submitAnswer(data).subscribe(result =>{
-      alert('Thanks you, your answer is submitted. You will be redirect to homepage after click OK');
+      alert('Thanks you, your answer is submitted. You will be redirect to homepage');
       this.router.navigate(['/index']);
     });
+  }
+
+  timerCountdown(){
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        alert('Time up');
+        this.submitAnswer();
+      }
+    },1000)
   }
 }
 
