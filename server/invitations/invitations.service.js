@@ -21,10 +21,13 @@ module.exports = {
     create,
     update,
     delete: _delete,
+
     examToken,
     addTokenToBlackList,
     getBlackListToken,
-    updateAnswer
+    updateAnswer,
+    updateStatus
+
 };
 
 async function sendEmail(invitationParam) {
@@ -66,7 +69,13 @@ async function create(invitationParam) {
     const invitation = new Invitation(invitationParam);
 
     // save invitation
-    await invitation.save();
+    await invitation.save((function (_id) {
+        return function () {
+          console.log(_id);
+          return _id;
+          // your save callback code in here
+        };
+      })(invitation._id));
 }
 
 async function update(id, invitationParam) {
@@ -87,6 +96,7 @@ async function update(id, invitationParam) {
 async function _delete(id) {
     await Invitation.findByIdAndRemove(id);
 }
+
 
 async function updateAnswer(invitationParam) {
     const invitation = await Invitation.findById(invitationParam.id);
@@ -115,4 +125,19 @@ async function addTokenToBlackList(token) {
 
 async function getBlackListToken(token) {
    return await BlackList.find({ token: token });
+
+async function updateStatus(id, invitationParam) {
+    const invitation = await Invitation.findById(id);
+    console.log(invitation);
+    // validate
+    if (!invitation) throw 'Invitation not found';
+ 
+    if(invitation.status==='Deactive'){
+       invitation.status ='Active';
+    }else{
+        invitation.status ='Deactive';
+    }
+
+    await invitation.save();
+
 }

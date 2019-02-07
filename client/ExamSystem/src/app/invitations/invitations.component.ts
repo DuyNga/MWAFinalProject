@@ -1,5 +1,5 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import {MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { Invitations } from './invitations.model';
 import { InvitationsService } from './invitations.service';
 import { CrudInvitationComponent } from './crud-invitation/crud-invitation.component';
@@ -10,9 +10,9 @@ import { CrudInvitationComponent } from './crud-invitation/crud-invitation.compo
   styleUrls: ['./invitations.component.css']
 })
 export class InvitationsComponent implements OnInit {
-  displayedColumns: string[] = ['inviteeName', 'email','result','status', 'actions'];
+  displayedColumns: string[] = ['inviteeName', 'email', 'result', 'status', 'actions'];
   // displayedColumns: string[] = [ 'email','result','status', 'actions'];
-  dataSource = new  MatTableDataSource<Invitations>();
+  dataSource = new MatTableDataSource<Invitations>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public invitationService: InvitationsService,
@@ -23,18 +23,24 @@ export class InvitationsComponent implements OnInit {
     this.loadData();
   }
 
-   addNew() {
-     console.log('add new click');
-     const newDialog = this.dialog.open(CrudInvitationComponent, {
-       width: '80%',
-       height: 'auto',
-       data: { data: '' }
-     });
- 
-     newDialog.afterClosed().subscribe(result => {
-       this.loadData();
-     });
-    }
+  addNew() {
+    console.log('add new click');
+    const newDialog = this.dialog.open(CrudInvitationComponent, {
+      width: '80%',
+      minHeight: '300px',
+      data: { data: '' }
+    });
+
+    newDialog.afterClosed().subscribe(result => {
+      this.loadData();
+    });
+  }
+  sendEmail(data){
+    this.invitationService.sendEmail((data)).subscribe(result => {
+      console.log(result);
+    });
+
+  }
   startEdit(data) {
     console.log(data + 'row Edit click');
     const editDialog = this.dialog.open(CrudInvitationComponent, {
@@ -42,22 +48,21 @@ export class InvitationsComponent implements OnInit {
       height: 'auto',
       data: data
     });
-    editDialog.afterClosed().subscribe(result => {
+    editDialog.componentInstance.onAdd.subscribe((data: any) => {
       this.loadData();
     });
   }
   deleteItem(id) {
-    console.log('Delete click '+ id);
+    console.log('Delete click ' + id);
     this.invitationService.deactiveInvitationById(id).subscribe(result => {
       this.loadData();
     });
-   }
+  }
 
-   public loadData() {
+  public loadData() {
     this.invitationService.getAllInvitation().subscribe(result => {
       console.log(result);
       this.dataSource = new MatTableDataSource(result);
-      console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
     });
   }

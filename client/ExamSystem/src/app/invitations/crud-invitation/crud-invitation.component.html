@@ -1,74 +1,74 @@
 <h3>CRUD Invitation</h3>
 <h3>{{data.invitationName}}</h3>
+<div class="container" mat-dialog-content>
+
+    <form class="form-horizontal crud-container" #formControl="ngForm">
+  
+      <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
+        <input matInput placeholder="Invitation Name" required [(ngModel)]="data.inviteeName" [ngModelOptions]="{ standalone: true }"
+          type="text">
+      </mat-form-field>
+      <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
+        <input matInput placeholder="Email" required [(ngModel)]="data.email" [ngModelOptions]="{ standalone: true }"
+          type="text"
+          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+          #email="ngModel">
+      </mat-form-field>
+      <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
+        <textarea matInput placeholder="Question 1" required [(ngModel)]="data.submittedAnswer[0].question" [ngModelOptions]="{ standalone: true }"
+          name="invitation" #invitation  readonly></textarea>
+      </mat-form-field>
+      <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
+        <textarea matInput placeholder="Answer 1" [(ngModel)]="data.submittedAnswer[0].answer" [ngModelOptions]="{ standalone: true }"
+        readonly ></textarea>
+      </mat-form-field>
+      <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
+        <textarea matInput placeholder="Question 2" required [(ngModel)]="data.submittedAnswer[1].question" [ngModelOptions]="{ standalone: true }"
+          name="invitation" #invitation readonly></textarea>
+      </mat-form-field>
+      <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
+        <textarea matInput placeholder="Answer 2" [(ngModel)]="data.submittedAnswer[1].answer" [ngModelOptions]="{ standalone: true }"
+        readonly></textarea>
+      </mat-form-field>
+      <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
+        <textarea matInput placeholder="Question 3" required [(ngModel)]="data.submittedAnswer[2].question" [ngModelOptions]="{ standalone: true }"
+          name="invitation" #invitation readonly></textarea>
+      </mat-form-field>
+      <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
+        <textarea matInput placeholder="Answer 3" [(ngModel)]="data.submittedAnswer[2].answer" [ngModelOptions]="{ standalone: true }"
+        readonly></textarea>
+      </mat-form-field>
+  
+      <mat-form-field *ngIf="isShowResult">
+        <mat-select placeholder="Result" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
+          <mat-option value=""></mat-option>
+          <mat-option value="Pass">Pass</mat-option>
+          <mat-option value="Fail">Fail</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-select placeholder="Status" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
+          <mat-option value="Not Sent">Not Sent</mat-option>
+          <mat-option value="Sent">Sent</mat-option>
+          <mat-option value="Clicked">Clicked</mat-option>
+          <mat-option value="Answered">Answered</mat-option>
+          <mat-option value="Finished">Finished</mat-option>
+          <mat-option value="Active">Deactive</mat-option>
+          <mat-option value="Deactive">Deactive</mat-option>
+          <!-- <mat-option value="Active">Active</mat-option>
+          <mat-option value="Deactive">Deactive</mat-option> -->
+        </mat-select>
+      </mat-form-field>
+  
+      <div mat-dialog-actions style="float:right">
+  
+        <button class="btn btn-danger" mat-button (click)="cancel()" tabindex="-1">Cancel</button>
+        <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="addNewInvitation()">
+          Save
+        </button></div>
+        
 <div class="container">
-
-  <form class="form-horizontal crud-container" #formControl="ngForm">
-
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
-      <input matInput placeholder="Invitation Name" required [(ngModel)]="data.inviteeName" [ngModelOptions]="{ standalone: true }"
-        type="text">
-    </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel">
-      <input matInput placeholder="Email" required [(ngModel)]="data.email" [ngModelOptions]="{ standalone: true }"
-        type="text"
-        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-        #email="ngModel">
-    </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
-      <textarea matInput placeholder="Question 1" required [(ngModel)]="data.questions[0].question" [ngModelOptions]="{ standalone: true }"
-        name="invitation" #invitation row=5></textarea>
-    </mat-form-field>
-    <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
-      <textarea matInput placeholder="Answer 1" [(ngModel)]="data.answers[0]" [ngModelOptions]="{ standalone: true }"
-        row=5></textarea>
-    </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
-      <textarea matInput placeholder="Question 2" required [(ngModel)]="data.questions[1].question" [ngModelOptions]="{ standalone: true }"
-        name="invitation" #invitation row=5></textarea>
-    </mat-form-field>
-    <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
-      <textarea matInput placeholder="Answer 2" [(ngModel)]="data.answers[1]" [ngModelOptions]="{ standalone: true }"
-        row=5></textarea>
-    </mat-form-field>
-    <mat-form-field [hideRequiredMarker]="crudInvitationForm.value.hideRequired" [floatLabel]="crudInvitationForm.value.floatLabel"*ngIf="isShowAnswer">
-      <textarea matInput placeholder="Question 3" required [(ngModel)]="data.questions[2].question" [ngModelOptions]="{ standalone: true }"
-        name="invitation" #invitation row=5></textarea>
-    </mat-form-field>
-    <mat-form-field [floatLabel]="crudInvitationForm.value.floatLabel" *ngIf="isShowAnswer">
-      <textarea matInput placeholder="Answer 3" [(ngModel)]="data.answers[2]" [ngModelOptions]="{ standalone: true }"
-        row=5></textarea>
-    </mat-form-field>
-
-    <mat-form-field *ngIf="isShowResult">
-      <mat-select placeholder="Result" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
-        <mat-option value=""></mat-option>
-        <mat-option value="Pass">Pass</mat-option>
-        <mat-option value="Fail">Fail</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Status" [(ngModel)]="data.status" [ngModelOptions]="{ standalone: true }">
-        <!-- <mat-option value="Not Sent">Not Sent</mat-option>
-        <mat-option value="Sent">Sent</mat-option>
-        <mat-option value="Clicked">Clicked</mat-option>
-        <mat-option value="Answered">Answered</mat-option>
-        <mat-option value="Finished">Finished</mat-option>
-        <mat-option value="Deactive">Deactive</mat-option> -->
-        <mat-option value="Active">Active</mat-option>
-        <mat-option value="Deactive">Deactive</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <div mat-dialog-actions style="float:right">
-
-      <button class="btn btn-danger" mat-button (click)="cancel()" tabindex="-1">Cancel</button>
-      <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="sendEmail()">
-        Send Email
-      </button>
-      <button class="btn btn-primary" mat-button [disabled]="!formControl.valid" type="submit" (click)="addNewInvitation()">
-        Save
-      </button>
     </div>
   </form>
 </div>

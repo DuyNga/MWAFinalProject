@@ -10,6 +10,8 @@ router.post('/send_email', sendEmail);
 router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
+router.put('/updatestatus/:id', updateStatus);
+
 router.post('/answer/', updateAnswer);
 router.post('/blacklist', updateBlacklist);
 router.get('/blacklist/:token', getBlackList);
@@ -74,4 +76,11 @@ function getBlackList(req, res, next){
     console.log(req.params.token);
     invitationService.getBlackListToken(req.params.token).then(result => res.json(result))
     .catch(err=> next(err) );
+}
+
+function updateStatus(req,res, next){
+    console.log(req.params);
+    invitationService.updateStatus(req.params.id).then(()=>res.json({}))
+    .catch(err=>next(err));
+
 }
