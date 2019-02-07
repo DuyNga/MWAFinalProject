@@ -9,8 +9,11 @@ const schema = new Schema({
     sendby:{type: String },
     answers:{type: Array},
     result:{type: String},
-    inviteeName:{type: String , required: true}
+    inviteeName:{type: String , required: true},
+    submittedAnswer:{type:Array},
 });
+
+
 
 schema.set('toJSON', {virtuals:true});
 module.exports= mongoose.model('Invitation',schema);

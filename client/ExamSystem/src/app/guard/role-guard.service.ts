@@ -19,7 +19,6 @@ export class RoleGuardService {
     }
 
     // navigate to not found page
-    this._router.navigate(['/404']);
     return false;
   }
 }

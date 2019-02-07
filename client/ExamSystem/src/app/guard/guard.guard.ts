@@ -1,3 +1,4 @@
+import { NavService } from './../service/nav.service';
 import { AuthService } from '../login/auth.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { ifError } from 'assert';
 export class GuardGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService, private navService:NavService
   ) {}
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -23,11 +24,18 @@ export class GuardGuard implements CanActivate {
       const token = currentUser.token;
 
       if (token) {
-        console.log(token);
         this.authService.getUserInfo(token).subscribe(
           response => {
-            console.log(response);
-            if (response.role === '2') {
+            if (response.role === '1') {
+              this.navService.updateNavAfterAuth('admin');
+              this.navService.updateLoginStatus(true);
+              this.router.navigate(['/admin/invitations']);
+              // This means already logged-in
+              return true;
+            } else if (response.role === '2') {
+              this.navService.updateNavAfterAuth('staff');
+              this.navService.updateLoginStatus(true);
+              this.router.navigate(['/admin/invitations']);
               // This means already logged-in
               return true;
             } else {
@@ -48,7 +56,6 @@ export class GuardGuard implements CanActivate {
         this.router.navigate(['/login']);
         return false;
       }
-
     return true;
   }
 }

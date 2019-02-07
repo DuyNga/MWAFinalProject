@@ -55,8 +55,7 @@ export class UsersComponent implements OnInit {
    }
    delete(id) {
     console.log('Delete click');
-    this.usersService.   deleteUserById
-    (id).subscribe(result => {
+    this.usersService.deleteUserById(id).subscribe(result => {
       this.loadData();
     });
    }

@@ -15,7 +15,7 @@ app.use('/user', require('./users/users.controler'));
 app.use('/question', require('./questions/questions.controller'));
 app.use('/invitation', require('./invitations/invitations.controller'));
 
-app.use(error);
+// app.use(error());
 
 const port = process.env.port||4000;
 const server = app.listen(port, function(){

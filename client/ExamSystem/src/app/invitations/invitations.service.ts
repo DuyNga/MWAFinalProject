@@ -47,4 +47,10 @@ export class InvitationsService {
       headers: this.headers
     });
   }
+
+  getInvitationById(id) {
+    return this.http.get('http://localhost:4000/invitation/' + id, {
+      headers: this.headers
+    });
+  }
 }

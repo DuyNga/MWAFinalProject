@@ -8,7 +8,7 @@
           <a class="nav-item nav-link"  [routerLink]="['admin/questions']" [routerLinkActive]="'active'">Question</a>
           <a class="nav-item nav-link"  [routerLink]="['admin/invitations']" [routerLinkActive]="'active'">Invitation</a> -->
           <li class="nav-item" *ngFor="let link of links">
-              <a class="nav-link" [routerLink]="link.path">{{ link.text }}</a>
+              <a class="nav-item nav-link" [routerLink]="link.path" >{{ link.text }}</a>
             </li>
         </div>
       </div>

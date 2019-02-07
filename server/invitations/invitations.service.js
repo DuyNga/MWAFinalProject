@@ -12,6 +12,7 @@ const {
     PASS_EMAIL: password
 } = process.env;
 const Invitation = db.Invitation;
+const BlackList = db.BlackList;
 
 module.exports = {
     sendEmail,
@@ -19,7 +20,11 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    examToken,
+    addTokenToBlackList,
+    getBlackListToken,
+    updateAnswer
 };
 
 async function sendEmail(invitationParam) {
@@ -81,4 +86,33 @@ async function update(id, invitationParam) {
 
 async function _delete(id) {
     await Invitation.findByIdAndRemove(id);
+}
+
+async function updateAnswer(invitationParam) {
+    const invitation = await Invitation.findById(invitationParam.id);
+    // validate
+    if (!invitation) throw 'Invitation not found';
+    // copy invitationParam properties to invitation
+   
+    invitation.submittedAnswer =(invitationParam.submittedAnswer);
+
+    await invitation.save();
+}
+
+function examToken(body) {
+    const valid = {"name" : body.inviteeName, "email":body.email,"id":body._id, "token":body.token, "createdDate" : Date.now};
+    const token = jwt.sign({ invInfo: valid }, config.examSecret,{
+        expiresIn:86400
+    });
+    return token
+}
+
+async function addTokenToBlackList(token) {
+    const blackToken = new BlackList(token);
+    // save invitation
+    await blackToken.save();
+}
+
+async function getBlackListToken(token) {
+   return await BlackList.find({ token: token });
 }

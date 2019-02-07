@@ -12,12 +12,12 @@ import { InvitationsComponent } from './invitations/invitations.component';
 import { ExamComponent } from './exam/exam.component';
 
 const routes: Routes = [
-  {path: 'admin/users', component: UsersComponent, canActivate: [GuardGuard], data: {role: '1'}},
   {path: 'admin/questions', component: QuestionsComponent, canActivate: [GuardGuard]},
+  {path: 'admin/users', component: UsersComponent, canActivate: [GuardGuard], data: {role: '1'}},
   {path: 'admin/invitations', component: InvitationsComponent, canActivate: [GuardGuard]},
   {path: 'index', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'exam', component: ExamComponent}
+  {path: 'exam/:token', component: ExamComponent}
 ];
 
 @NgModule({

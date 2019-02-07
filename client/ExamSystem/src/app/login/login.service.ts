@@ -13,11 +13,11 @@ export class LoginService {
   constructor(private http: HttpClient) { }
   login(loginModel): Observable<any> {
 
-      this.result = this.http.post('http://localhost:4000/user/authenticate/', loginModel, {
+    return this.http.post('http://localhost:4000/user/authenticate/', loginModel, {
         headers: this.headers
     });
-    this.getLoggedInName.next(this.result.subscribe(s => console.log(s.token)));
-    return this.result;
+    // this.getLoggedInName.next(this.result.subscribe(s => console.log(s.token)));
+    // return this.result;
   }
 }
 class Loginmodel {

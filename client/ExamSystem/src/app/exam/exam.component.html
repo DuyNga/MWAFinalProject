@@ -1,4 +1,21 @@
-<p>Exam work</p>
-<li *ngFor='let question of result'>
-    <a >{{question.question}}</a>
-</li>
+
+  <div class="form-horizontal crud-container">
+      <h3>Welcome to exam system </h3>
+    <h2>{{errorMess}}</h2>
+    <form #formControl="ngForm">
+      <p *ngFor='let question of result; let i = index' [attr.data-index]="i">
+
+          <!-- <h5>Q{{i+1}}: {{question.question}}</h5>
+            <div>Answer: <input type="text" id="{{question._id}}"/></div> -->
+        <!-- <br/> -->
+
+        <mat-form-field
+            [floatLabel]="exam.value.floatLabel">
+          <input matInput placeholder="Q{{i+1}}: {{question.question}}"  type="text" name="{{question._id}}" [(ngModel)]='question.sampleAnswer' #{{question._id}}>
+        </mat-form-field>
+      </p>
+      <button *ngIf="result" type="submit" (click)="submitAnswer()" >Submit</button>
+    </form>
+
+  </div>
+

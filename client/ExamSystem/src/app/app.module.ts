@@ -21,6 +21,7 @@ import { AuthService } from './login/auth.service';
 import { CrudQuestionComponent } from './questions/crud-question/crud-question.component';
 import { InvitationsComponent } from './invitations/invitations.component';
 import { CrudInvitationComponent } from './invitations/crud-invitation/crud-invitation.component';
+import { AgreementComponent } from './exam/agreement/agreement.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CrudInvitationComponent } from './invitations/crud-invitation/crud-invi
     CrudUserComponent,
     CrudQuestionComponent,
     InvitationsComponent,
-    CrudInvitationComponent
+    CrudInvitationComponent,
+    AgreementComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,8 +45,8 @@ import { CrudInvitationComponent } from './invitations/crud-invitation/crud-invi
 
   ],
   providers: [GuardGuard],
-  entryComponents: [CrudUserComponent, CrudQuestionComponent
-  , CrudInvitationComponent],
+  entryComponents: [CrudUserComponent, CrudQuestionComponent, AgreementComponent
+  , CrudInvitationComponent, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
